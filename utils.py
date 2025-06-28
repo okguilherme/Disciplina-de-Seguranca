@@ -5,8 +5,7 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 import os
 
-
-# Parâmetros DH fixos e compatíveis
+# ----- Parâmetros DH fixos e compatíveis -----
 parameters_numbers = dh.DHParameterNumbers(
     p=int(
         "FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD1"
@@ -16,23 +15,11 @@ parameters_numbers = dh.DHParameterNumbers(
     ),
     g=2
 )
-parameters = parameters_numbers.parameters()
+parameters = parameters_numbers.parameters(default_backend())
 
-# ----- Geração de chaves DH -----
-def generate_dh_key_pair():
-    private_key = parameters.generate_private_key()
-    public_key = private_key.public_key()
-    return private_key, public_key
-
-# ----- Serialização e desserialização -----
-def serialize_public_key(public_key):
-    return public_key.public_bytes(
-        encoding=serialization.Encoding.PEM,
-        format=serialization.PublicFormat.SubjectPublicKeyInfo
-    )
-
-def deserialize_public_key(pem_data):
-    return serialization.load_pem_public_key(pem_data, backend=default_backend())
+# ----- Geração da chave privada DH -----
+def generate_private_key():
+    return parameters.generate_private_key()
 
 # ----- Derivação de chaves (AES + HMAC) -----
 def derive_keys(shared_key, salt):
