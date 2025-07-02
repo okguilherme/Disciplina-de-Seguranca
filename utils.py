@@ -35,18 +35,6 @@ def derive_keys(shared_key, salt):
     key_hmac = key_material[32:]
     return key_aes, key_hmac
 
-# ----- Criptografia AES CBC -----
-def encrypt_message(key, plaintext):
-    iv = os.urandom(16)
-    cipher = Cipher(algorithms.AES(key), modes.CBC(iv), backend=default_backend())
-    encryptor = cipher.encryptor()
-
-    padding_len = 16 - (len(plaintext) % 16)
-    padded_plaintext = plaintext + bytes([padding_len] * padding_len)
-
-    ciphertext = encryptor.update(padded_plaintext) + encryptor.finalize()
-    return iv, ciphertext
-
 # ----- Descriptografia AES CBC -----
 def decrypt_message(key, iv, ciphertext):
     cipher = Cipher(algorithms.AES(key), modes.CBC(iv), backend=default_backend())
