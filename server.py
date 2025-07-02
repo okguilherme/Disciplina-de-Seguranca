@@ -28,7 +28,7 @@ def handle_client(conn, addr):
         print(f"\n[SERVIDOR] Recebido A e assinatura de {username_cliente.decode()}")
 
         # Baixando a chave pública do cliente do GitHub
-        pub_key_url = "https://raw.githubusercontent.com/okguilherme/Disciplina-de-Seguranca/refs/heads/main/cliente_publico.pem"
+        pub_key_url = "https://raw.githubusercontent.com/okguilherme/Disciplina-de-Seguranca/refs/heads/main/key/cliente_publico.pem"
         print(f"\n[SERVIDOR] Baixando chave pública PEM do cliente")
         time.sleep(3)
 
@@ -51,7 +51,7 @@ def handle_client(conn, addr):
         B_bytes = str(B).encode()
 
         # Carregando a chave privada do servidor para assinar B
-        priv_key_url = "https://raw.githubusercontent.com/okguilherme/Disciplina-de-Seguranca/refs/heads/main/servidor.pem"
+        priv_key_url = "https://raw.githubusercontent.com/okguilherme/Disciplina-de-Seguranca/refs/heads/main/key/servidor.pem"
         priv_key_pem = requests.get(priv_key_url).content
         private_key_ecdsa = serialization.load_pem_private_key(priv_key_pem, password=None)
         username_servidor = b"okguilherme"

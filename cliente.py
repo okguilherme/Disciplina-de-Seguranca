@@ -38,7 +38,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     A_bytes = str(A).encode()
 
     # Baixando a chave privada do cliente para assinar A e o username
-    priv_key_url = "https://raw.githubusercontent.com/okguilherme/Disciplina-de-Seguranca/refs/heads/main/cliente.pem"
+    priv_key_url = "https://raw.githubusercontent.com/okguilherme/Disciplina-de-Seguranca/refs/heads/main/key/cliente.pem"
     priv_key_pem = requests.get(priv_key_url).content
     private_key_ecdsa = serialization.load_pem_private_key(priv_key_pem, password=None)
 
@@ -65,7 +65,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     # Baixando a chave pública do servidor para verificar a assinatura recebida
     print("\n[CLIENTE] Baixando a chave pública do servidor...")
     time.sleep(3)
-    pub_key_url = "https://raw.githubusercontent.com/okguilherme/Disciplina-de-Seguranca/refs/heads/main/servidor_publico.pem"
+    pub_key_url = "https://raw.githubusercontent.com/okguilherme/Disciplina-de-Seguranca/refs/heads/main/key/servidor_publico.pem"
     response = requests.get(pub_key_url)
     if response.status_code != 200:
         print("[CLIENTE] ERRO ao baixar chave pública do servidor.")
