@@ -1,9 +1,9 @@
-from cryptography.hazmat.primitives.asymmetric import dh
-from cryptography.hazmat.backends import default_backend
-from cryptography.hazmat.primitives import serialization, hashes, hmac
-from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
-import os
+from cryptography.hazmat.primitives.asymmetric import dh # DH (Diffie-Hellman) para troca de chaves
+from cryptography.hazmat.backends import default_backend # Backend padrão para operações criptográficas
+from cryptography.hazmat.primitives import serialization, hashes, hmac # Serialização de chaves, funções hash e HMAC
+from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC # Derivação de chaves (PBKDF2)
+from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes # Criptografia simétrica (AES-CBC, etc.)
+import os # Utilitários do sistema (ex: geração de bytes aleatórios)
 
 # ----- Parâmetros DH fixos e compatíveis -----
 parameters_numbers = dh.DHParameterNumbers(
