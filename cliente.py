@@ -119,7 +119,11 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     h = hmac.HMAC(Key_HMAC, hashes.SHA256())
     h.update(IV + ciphertext)
     HMAC_TAG = h.finalize()
-
+     
+    #testar confiabilidade/integridade
+    hmac_alterado = bytearray(HMAC_TAG)
+    hmac_alterado[0] ^= 0xFF  # Inverte o primeiro byte do HMAC
+    
     # Enviando o pacote (HMAC + IV + ciphertext) para o servidor
     s.sendall(HMAC_TAG + IV + ciphertext)
     print("\n[CLIENTE] Mensagem enviada com sucesso.")
